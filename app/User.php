@@ -16,7 +16,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'username',
+        'phone'
     ];
 
     /**
@@ -27,4 +31,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+      * Declaring the ORM relationships
+      */
+    public function Group(){
+        return $this->belongsTo('App\Group');
+    }
+
+    public function PatientRecord(){
+        return $this->hasMany('App\PatientRecord');
+    }
 }
