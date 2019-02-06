@@ -12,7 +12,7 @@ class PatientRecord extends Model
     'disease_id',
     'symptoms',
     'treatment_id',
-
+  ];
 
     /**
       * Declaring the ORM relationships
