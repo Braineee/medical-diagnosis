@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Disease;
+use App\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DiseaseController extends Controller
+class PatientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +16,9 @@ class DiseaseController extends Controller
     public function index()
     {
       if(Auth::check()){
-        //check if the user is eligible to view th
-        //if(Auth::user()->group_id == '2'){
-
-          //get the list of patients
-          $diseases = Disease::all();
-          return view('diseases.index', ['diseases' => $diseases]);
-
-        //}else{
-           redirect()->route('home');
-        //}
+        //get the list of patients
+        $patients = User::whereIn('group_id', [1])->get();
+        return view('patients.index', ['patients' => $patients]);
       }
       return view('auth.login');
     }
@@ -54,10 +47,10 @@ class DiseaseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Disease  $disease
+     * @param  \App\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Disease $disease)
+    public function show(user $user)
     {
         //
     }
@@ -65,10 +58,10 @@ class DiseaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Disease  $disease
+     * @param  \App\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Disease $disease)
+    public function edit(user $user)
     {
         //
     }
@@ -77,10 +70,10 @@ class DiseaseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Disease  $disease
+     * @param  \App\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Disease $disease)
+    public function update(Request $request, user $user)
     {
         //
     }
@@ -88,10 +81,10 @@ class DiseaseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Disease  $disease
+     * @param  \App\user  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Disease $disease)
+    public function destroy(user $user)
     {
         //
     }

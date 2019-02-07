@@ -1,0 +1,90 @@
+
+.site-header {
+  background-color: rgba(0, 0, 0, .85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.site-header a {
+  color: #15291b;
+  transition: ease-in-out color .15s;
+}
+.site-header a:hover {
+  background-color:#15291b !important;
+  color: #fff;
+  text-decoration: none;
+}
+.bg-darker{
+  background-color:#15291b;
+}
+.v-align{
+  vertical-align: middle;
+}
+
+.text-blue{
+  color:##007bff !important;
+}
+
+.text-green-light{
+  color:#060 !important;
+}
+
+a:hover{
+  text-decoration: none;
+  color:#bd2130;
+}
+
+.inset {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 2px rgba(255,255,255,0.6),
+    0 1px 1px rgba(0,0,0,0.1);
+  background-color: transparent !important;
+  z-index: 999;
+}
+
+.inset img {
+  border-radius: inherit;
+  width: inherit;
+  height: inherit;
+  display: block;
+  position: relative;
+  z-index: 998;
+}
+
+.payment-button{
+  background-image: -webkit-linear-gradient(-180deg,#fafbfc,#eff3f6 90%) !important;  /* Chrome 10-25, Safari 5.1-6 */
+  background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color:#cb2431;
+  border: solid 1px  #e0e0e0;
+}
+
+.payment-button:hover{
+  background: #cb2431 !important;
+  color: #fff;
+}
+
+.back-button{
+  background-image: -webkit-linear-gradient(-180deg,#fafbfc,#eff3f6 90%) !important;  /* Chrome 10-25, Safari 5.1-6 */
+  background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color:#007bff;;
+  border: solid 1px  #e0e0e0;
+}
+
+.back-button:hover{
+  background: #007bff !important;
+  color: #fff;
+}
+
+.admission-button{
+  background-image: -webkit-linear-gradient(-180deg,#fafbfc,#eff3f6 90%) !important;  /* Chrome 10-25, Safari 5.1-6 */
+  background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color:#060;;
+  border: solid 1px  #e0e0e0;
+}
+
+.admission-button:hover{
+  background: #060 !important;
+  color: #fff;
+}
