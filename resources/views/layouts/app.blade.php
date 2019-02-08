@@ -80,6 +80,15 @@
         </nav>
 
         <main class="py-4">
+            <div class="container justify-content-center">
+              <div class="row justify-content-center">
+                <div class="col-md-10">
+                  @include('alerts.error')
+                  @include('alerts.success')
+                </div>
+              </div>
+            </div>
+
             @yield('content')
         </main>
     </div>

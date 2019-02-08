@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Symptom;
 use Illuminate\Http\Request;
 
-class SymtomController extends Controller
+class SymptomController extends Controller
 {
     /**
      * Display a listing of the resource.

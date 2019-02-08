@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class PatientRecord extends Model
 {
+
+  // define the primary key
+  protected $primaryKey = 'patient_record_id';
+
   // define the fillables
   protected $fillable = [
     'user_id',

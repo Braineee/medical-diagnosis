@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+
+  // define the primary key
+  protected $primaryKey = 'group_id';
+
   // define the fillables
   protected $fillable = [
     'group_name',

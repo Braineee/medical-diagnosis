@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Treatment;
 use Illuminate\Http\Request;
 
-class TreamentController extends Controller
+class TreatmentController extends Controller
 {
     /**
      * Display a listing of the resource.

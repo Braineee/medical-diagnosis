@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class NewSymptom extends Model
 {
+
+
+  // define the primary key
+  protected $primaryKey = 'new_symptom_id';
+
   // define the fillables
   protected $fillable = [
     'symptom_id',
