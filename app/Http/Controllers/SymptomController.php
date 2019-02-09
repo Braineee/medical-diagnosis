@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Symptom;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SymptomController extends Controller
 {
@@ -30,6 +31,19 @@ class SymptomController extends Controller
     }
 
     /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'symptom' => ['required', 'string', 'max:255'],
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -37,7 +51,15 @@ class SymptomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $symptom_created = Symptom::create([
+          'symptom_name' => $request->input('symptom'),
+      ]);
+      //check if storage was successful
+      if($symptom_created){
+        return redirect()->route('symptoms.index')->with('success','Symptom has been registered successfully');
+      }else{
+          return back()->withInput()->with('error','Sorry, Symptom was not registered');
+      }
     }
 
     /**
@@ -48,7 +70,13 @@ class SymptomController extends Controller
      */
     public function show(Symptom $symptom)
     {
-        //
+      //$project = Project::where('id', $project->id)->first();
+      $symptom = Symptom::find($symptom->disease_id);
+
+      //pass the project comments to the comments variable
+      //$symptoms = $symptom->symptoms;
+
+      return view('symptoms.show', ['symptoms' => $symptom]);
     }
 
     /**
@@ -82,6 +110,13 @@ class SymptomController extends Controller
      */
     public function destroy(Symptom $symptom)
     {
-        //
+      $findSymptom = Symptom::find($symptom->disease_id);
+
+      if($findSymptom->delete()){
+          return redirect()->route('symptoms.index')->with('success', 'Symptom has been deleted successfully');
+      }
+        //redirect
+        return back()->withInput('error', 'Symptom could not be deleted');
+      }
     }
 }
