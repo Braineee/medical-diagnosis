@@ -27,7 +27,9 @@ Route::middleware(['auth'])->group(function(){
   Route::middleware(['doctor'])->group(function() {
     //Disease
     Route::resource('diseases', 'DiseaseController');
-    Route::get('/diseases/{disease_id}', 'DiseaseController@destroy')->name('diseases.deleteDisease');
+    Route::get('/diseases/{disease_id?}', 'DiseaseController@destroy')->name('diseases.deleteDisease');
+    Route::get('/diseases/addsymptom/{disease_id?}', 'DiseaseController@addsymptom')->name('diseases.addSymptom');
+    Route::post('/diseases/addsymptom/', 'DiseaseController@storeSymptom')->name('diseases.storeSymptom');
     //Symptom
     Route::resource('symptoms', 'SymptomController');
     //Treatment

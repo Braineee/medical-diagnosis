@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Disease;
+use App\Level;
+use App\Symptom;
+use App\DiseaseSymptom;
 use Illuminate\Http\Request;
 
 class DiseaseController extends Controller
@@ -18,6 +21,43 @@ class DiseaseController extends Controller
         //get the list of patients
         $diseases = Disease::all();
         return view('diseases.index', ['diseases' => $diseases]);
+    }
+
+    /**
+      * show the form for adding symptoms to diseases
+      */
+    public function addSymptom( $disease_id = null )
+    {
+      if(!$disease_id){
+        return back();
+      }
+      // get the disease details
+      $disease = Disease::find($disease_id);
+
+      $symptoms = Symptom::all();
+
+      $levels = Level::all();
+
+
+      return view('diseases.addsymptom', ['disease' => $disease, 'symptoms' => $symptoms, 'levels' =>  $levels]);
+    }
+
+    /**
+      * store a newly added symptom
+      */
+    public function storeSymptom(Request $request){
+      $addSymptom = DiseaseSymptom::create([
+          'disease_id' => $request->input('disease'),
+          'symptom_id' => $request->input('symptom'),
+          'level_id' => $request->input('level')
+      ]);
+
+      //check if storage was successful
+      if($addSymptom){
+        return back()->withInput()->with('success','Symptom has been added successfully');
+      }else{
+        return back()->withInput()->with('error','Sorry, Symptom was not added');
+      }
     }
 
     /**
@@ -58,13 +98,13 @@ class DiseaseController extends Controller
      */
     public function show(Disease $disease)
     {
-      //$project = Project::where('id', $project->id)->first();
+
+      // get the disease details
       $disease = Disease::find($disease->disease_id);
+      // get the disease symtopms
+      $symptoms = DiseaseSymptom::where('disease_id', $disease->disease_id);
 
-      //pass the project comments to the comments variable
-      //$symptoms = $disease->symptoms;
-
-      return view('diseases.show', ['disease' => $disease]);
+      return view('diseases.show', ['disease' => $disease, 'symptoms' => $symptoms ]);
     }
 
     /**

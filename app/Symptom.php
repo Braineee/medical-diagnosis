@@ -19,10 +19,6 @@ class Symptom extends Model
     /**
       * Declaring the ORM relationships
       */
-    public function DiseaseSymptom(){
-        return $this->belongsToMany('App\DiseaseSymptom');
-    }
-
     public function Disease(){
         return $this->belongsToMany('App\Disease');
     }

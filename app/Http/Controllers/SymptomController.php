@@ -40,7 +40,7 @@ class SymptomController extends Controller
     {
         return Validator::make($data, [
             'symptom' => ['required', 'string', 'max:255'],
-            'symptom_description' => ['required', 'string', 'max:191']
+            'symptom_description' => ['required', 'string', 'max:225']
         ]);
     }
 
@@ -52,16 +52,19 @@ class SymptomController extends Controller
      */
     public function store(Request $request)
     {
+
       $symptom_created = Symptom::create([
           'symptom_name' => $request->input('symptom'),
           'description' => $request->input('symptom_description')
       ]);
+      
       //check if storage was successful
       if($symptom_created){
         return redirect()->route('symptoms.index')->with('success','Symptom has been registered successfully');
       }else{
           return back()->withInput()->with('error','Sorry, Symptom was not registered');
       }
+
     }
 
     /**
