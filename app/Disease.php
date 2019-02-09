@@ -13,6 +13,7 @@ class Disease extends Model
     // define the fillables
     protected $fillable = [
       'disease_name',
+      'description'
     ];
 
     /**

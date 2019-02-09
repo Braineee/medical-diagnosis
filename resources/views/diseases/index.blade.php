@@ -34,6 +34,7 @@
                   <thead>
                     <th>ID</th>
                     <th>Disease</th>
+                    <th>Description</th>
                     <th>Date Added</th>
                     <th>Option</th>
                   </thead>
@@ -42,6 +43,7 @@
                     <tr>
                       <td>{{ $disease->disease_id }}</td>
                       <td>{{ $disease->disease_name }}</td>
+                      <td>{{ $disease->description }}</td>
                       <td>{{ $disease->created_at }}</td>
                       <td>
                         <a href="/diseases/{{ $disease->disease_id }}" class="btn btn-sm btn-primary" title="Click this button to view more detail">View detail</a>

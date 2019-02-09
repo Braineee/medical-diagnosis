@@ -34,6 +34,7 @@
                   <thead>
                     <th>ID</th>
                     <th>Symptom</th>
+                    <th>Description</th>
                     <th>Date Added</th>
                     <th>Option</th>
                   </thead>
@@ -42,13 +43,14 @@
                     <tr>
                       <td>{{ $symptom->symptom_id }}</td>
                       <td>{{ $symptom->symptom_name }}</td>
+                      <td>{{ $symptom->description }}</td>
                       <td>{{ $symptom->created_at }}</td>
                       <td>
                         <a href="/symptoms/{{ $symptom->symptom_id }}" class="btn btn-sm btn-primary" title="Click this button to view more detail">View detail</a>
 
                         <!--button class="btn btn-sm btn-danger" title="Click this button to delete this symptom" id="delete-Form" data-id="{{ $symptom->symptom_id }}">Delete</button>
                         < delete proccedure -->
-                        <!--form id="delete-Form{{ $symptom->symptom_id }}" action='{{ route("symptoms.deleteDisease",[$symptom->symptom_id]) }}' method="POST" style="display:none">
+                        <!--form id="delete-Form{{ $symptom->symptom_id }}" action='{{}}' method="POST" style="display:none">
                           @csrf
                           @method('DELETE')
                         </form-->

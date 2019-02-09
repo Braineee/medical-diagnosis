@@ -40,6 +40,7 @@ class SymptomController extends Controller
     {
         return Validator::make($data, [
             'symptom' => ['required', 'string', 'max:255'],
+            'symptom_description' => ['required', 'string', 'max:191']
         ]);
     }
 
@@ -53,6 +54,7 @@ class SymptomController extends Controller
     {
       $symptom_created = Symptom::create([
           'symptom_name' => $request->input('symptom'),
+          'description' => $request->input('symptom_description')
       ]);
       //check if storage was successful
       if($symptom_created){
@@ -115,8 +117,7 @@ class SymptomController extends Controller
       if($findSymptom->delete()){
           return redirect()->route('symptoms.index')->with('success', 'Symptom has been deleted successfully');
       }
-        //redirect
-        return back()->withInput('error', 'Symptom could not be deleted');
-      }
+      //redirect
+      return back()->withInput('error', 'Symptom could not be deleted');
     }
 }

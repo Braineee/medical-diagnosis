@@ -13,6 +13,7 @@ class Symptom extends Model
     // define the fillabels
     protected $fillable = [
       'symptom_name',
+      'description'
     ];
 
     /**

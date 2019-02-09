@@ -46,6 +46,21 @@
                               @endif
                           </div>
                       </div>
+
+                      <div class="form-group row">
+                          <label for="disease_description" class="col-md-4 col-form-label text-md-right">{{ __('Description of disease') }}</label>
+
+                          <div class="col-md-6">
+                              <textarea id="disease_description" type="text" class="form-control{{ $errors->has('disease_description') ? ' is-invalid' : '' }}" name="disease_description" value="{{ old('disease_description') }}" required></textarea>
+
+                              @if ($errors->has('disease_description'))
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $errors->first('disease_description') }}</strong>
+                                  </span>
+                              @endif
+                          </div>
+                      </div>
+
                       <div class="form-group row mb-0">
                           <div class="col-md-6 offset-md-4">
                               <button type="submit" class="btn btn-primary btn-md">

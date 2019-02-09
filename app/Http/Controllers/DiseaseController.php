@@ -40,6 +40,7 @@ class DiseaseController extends Controller
     {
       $disease_created = Disease::create([
           'disease_name' => $request->input('disease'),
+          'description' => $request->input('disease_description')
       ]);
       //check if storage was successful
       if($disease_created){
