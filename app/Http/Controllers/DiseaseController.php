@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Disease;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class DiseaseController extends Controller
 {
@@ -16,17 +15,9 @@ class DiseaseController extends Controller
      */
     public function index()
     {
-      if(Auth::check()){
-        //check if the user is eligible to view th
-        if(Auth::user()->group_id == '2'){
-          //get the list of patients
-          $diseases = Disease::all();
-          return view('diseases.index', ['diseases' => $diseases]);
-        }else{
-           redirect()->route('home');
-        }
-      }
-      return view('auth.login');
+        //get the list of patients
+        $diseases = Disease::all();
+        return view('diseases.index', ['diseases' => $diseases]);
     }
 
     /**
@@ -66,7 +57,13 @@ class DiseaseController extends Controller
      */
     public function show(Disease $disease)
     {
-        //
+      //$project = Project::where('id', $project->id)->first();
+      $disease = Disease::find($disease->disease_id);
+
+      //pass the project comments to the comments variable
+      //$symptoms = $disease->symptoms;
+
+      return view('diseases.show', ['disease' => $disease]);
     }
 
     /**
@@ -100,17 +97,12 @@ class DiseaseController extends Controller
      */
     public function destroy(Disease $disease)
     {
-
-      var_dump($disease->disease_id);
-      die();
-
-      /*$findDisease = Disease::find($disease->disease_id);
+      $findDisease = Disease::find($disease->disease_id);
 
       if($findDisease->delete()){
           return redirect()->route('diseases.index')->with('success', 'Disease has been deleted successfully');
       }
-
       //redirect
-      return back()->withInput('error', 'Disease could not be deleted');*/
+      return back()->withInput('error', 'Disease could not be deleted');
     }
 }

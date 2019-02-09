@@ -44,19 +44,14 @@
                       <td>{{ $disease->disease_name }}</td>
                       <td>{{ $disease->created_at }}</td>
                       <td>
-                        <button type="button"
-                                class="btn btn-primary btn-sm"
-                                name="button"
-                                id='view-history' title="Click this button to view more detail">
-                                View details
-                        </button>
+                        <a href="/diseases/{{ $disease->disease_id }}" class="btn btn-sm btn-primary" title="Click this button to view more detail">View detail</a>
 
                         <!--button class="btn btn-sm btn-danger" title="Click this button to delete this disease" id="delete-Form" data-id="{{ $disease->disease_id }}">Delete</button>
                         < delete proccedure -->
-                        <form id="delete-Form{{ $disease->disease_id }}" action='{{ route("diseases.deleteDisease",[$disease->disease_id]) }}' method="POST" style="display:none">
+                        <!--form id="delete-Form{{ $disease->disease_id }}" action='{{ route("diseases.deleteDisease",[$disease->disease_id]) }}' method="POST" style="display:none">
                           @csrf
                           @method('DELETE')
-                        </form>
+                        </form-->
                         <!--end delet proccedure-->
                       </td>
                     </tr>

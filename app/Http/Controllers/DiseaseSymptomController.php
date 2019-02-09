@@ -46,7 +46,7 @@ class DiseaseSymptomController extends Controller
      */
     public function show(DiseaseSymptom $diseaseSymptom)
     {
-        //
+        
     }
 
     /**

@@ -23,29 +23,21 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->group(function(){
 
+  // middleware for doctors
   Route::middleware(['doctor'])->group(function() {
     //Disease
     Route::resource('diseases', 'DiseaseController');
     Route::get('/diseases/{disease_id}', 'DiseaseController@destroy')->name('diseases.deleteDisease');
-
     //Symptom
-    Route::resource('symtomps', 'SymptomController');
-
+    Route::resource('symptoms', 'SymptomController');
     //Treatment
     Route::resource('treatments', 'TreatmentController');
-
     //Disease symptoms
     Route::resource('disease symptoms', 'DiseaseSymptomController');
   });
 
-
-
-
   //Users
   Route::get('/patients', 'PatientController@index')->name('user.patients');
-
-
   //logout function
   Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
-
 });

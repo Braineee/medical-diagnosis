@@ -22,6 +22,10 @@ class Symptom extends Model
         return $this->belongsToMany('App\DiseaseSymptom');
     }
 
+    public function Disease(){
+        return $this->belongsToMany('App\Disease');
+    }
+
     public function NewSymptom(){
         return $this->hasMany('App\NewSymptom');
     }

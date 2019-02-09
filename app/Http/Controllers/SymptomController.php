@@ -14,7 +14,9 @@ class SymptomController extends Controller
      */
     public function index()
     {
-        //
+        // get the list of symptoms
+        $symptoms = Symptom::all();
+        return view('symptoms.index', ['symptoms' => $symptoms]);
     }
 
     /**
@@ -24,7 +26,7 @@ class SymptomController extends Controller
      */
     public function create()
     {
-        //
+      return view('symptoms.create');
     }
 
     /**
