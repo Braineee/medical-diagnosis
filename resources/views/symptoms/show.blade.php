@@ -30,6 +30,7 @@
                   <hr>
                   <h6><b>Description:</b></h6>
                   <p>{{ $symptom->description }}</p>
+                  <br>
                   <a href="/symptoms/{{ $symptom->symptom_id }}/edit" class="btn btn-md btn-success">Edit Symptom</a>
                   <button class="btn btn-md btn-danger" title="Click this button to delete this symptom" id="delete-Form-button">Delete Symptoms</button>
                 </div>

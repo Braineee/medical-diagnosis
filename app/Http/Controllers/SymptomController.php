@@ -57,7 +57,7 @@ class SymptomController extends Controller
           'symptom_name' => $request->input('symptom'),
           'description' => $request->input('symptom_description')
       ]);
-      
+
       //check if storage was successful
       if($symptom_created){
         return redirect()->route('symptoms.index')->with('success','Symptom has been registered successfully');
@@ -75,13 +75,9 @@ class SymptomController extends Controller
      */
     public function show(Symptom $symptom)
     {
-      //$project = Project::where('id', $project->id)->first();
-      $symptom = Symptom::find($symptom->disease_id);
+      $symptom = Symptom::find($symptom->symptom_id);
 
-      //pass the project comments to the comments variable
-      //$symptoms = $symptom->symptoms;
-
-      return view('symptoms.show', ['symptoms' => $symptom]);
+      return view('symptoms.show', ['symptom' => $symptom]);
     }
 
     /**
@@ -92,7 +88,9 @@ class SymptomController extends Controller
      */
     public function edit(Symptom $symptom)
     {
-        //
+      $symptom = Symptom::find($symptom->symptom_id);
+
+      return view('symptoms.edit', ['symptom' => $symptom]);
     }
 
     /**
@@ -104,7 +102,16 @@ class SymptomController extends Controller
      */
     public function update(Request $request, Symptom $symptom)
     {
-        //
+      $updateSymptom = Symptom::where('symptom_id', $symptom->symptom_id)->update([
+        'symptom_name' => $request->input('symptom'),
+        'description' => $request->input('symptom_description')
+      ]);
+
+      if($updateSymptom){
+          return redirect()->route('symptoms.index')->with('success', 'Symptom was updated successfully');
+      }
+      //redirect
+      return back()->withInput('error', 'Symptom could not be updated');
     }
 
     /**
@@ -115,7 +122,7 @@ class SymptomController extends Controller
      */
     public function destroy(Symptom $symptom)
     {
-      $findSymptom = Symptom::find($symptom->disease_id);
+      $findSymptom = Symptom::find($symptom->symptom_id);
 
       if($findSymptom->delete()){
           return redirect()->route('symptoms.index')->with('success', 'Symptom has been deleted successfully');

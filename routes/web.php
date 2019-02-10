@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/diseases/removesymptom/', 'DiseaseController@removeSymptom')->name('diseases.removeSymptom');
     //Symptom
     Route::resource('symptoms', 'SymptomController');
+    Route::get('/symptoms/{symptom_id?}', 'SymptomController@destroy')->name('symptoms.deleteSymptom');
     //Treatment
     Route::resource('treatments', 'TreatmentController');
     //Disease symptoms
