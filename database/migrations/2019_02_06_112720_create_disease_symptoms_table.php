@@ -13,7 +13,7 @@ class CreateDiseaseSymptomsTable extends Migration
      */
     public function up()
     {
-        Schema::create('disease_symptoms', function (Blueprint $table) {
+        Schema::create('disease_symptom', function (Blueprint $table) {
             $table->increments('disease_symptom_id');
             $table->integer('disease_id')->unsigned();
             $table->integer('symptom_id')->unsigned();
@@ -34,6 +34,6 @@ class CreateDiseaseSymptomsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('disease_symptoms');
+        Schema::dropIfExists('disease_symptom');
     }
 }

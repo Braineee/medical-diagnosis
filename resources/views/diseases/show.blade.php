@@ -33,29 +33,37 @@
                   <br>
                   <h6><b>Symptoms:</b></h6>
                   <ol>
-                    @foreach ($symptoms as $symptom)
-                      <li>{{ $symptom->symptom_name }}</li>
+                    @foreach ($disease_symptom_level as $symptom)
+                      <li>{{ $symptom->level_name }} level of {{ $symptom->symptom_name }}</li>
                     @endforeach
                   </ol>
                   <br>
-                  <a href="/diseases/addsymptom/{{ $disease->disease_id }}" class="btn btn-md btn-primary">Add Symptoms</a>
-                  <a href="" class="btn btn-md btn-info">Remove Symptoms</a>
-                  <a href="" class="btn btn-md btn-success">Edit Disease</a>
-                  <a href="" class="btn btn-md btn-danger">Delete Disease</a>
+                  <a href="/diseases/add-symptom/{{ $disease->disease_id }}" class="btn btn-md btn-primary">Add Symptoms</a>
+                  <a href="/diseases/remove-symptom/{{ $disease->disease_id }}" class="btn btn-md btn-info">Remove Symptoms</a>
+                  <a href="/diseases/{{ $disease->disease_id }}/edit" class="btn btn-md btn-success">Edit Disease</a>
+                  <button class="btn btn-md btn-danger" title="Click this button to delete this disease" id="delete-Form-button">Delete Disease</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- delete proccedure -->
+<form id="delete-Form" action='{{ route("diseases.deleteDisease",[$disease->disease_id]) }}' method="POST" style="display:none">
+  @csrf
+  @method('DELETE')
+</form>
+<!--end delet proccedure-->
 <script type="text/javascript">
-  $('#delete-Form').on('click', function(event){
-    alert($(this).attr('data-id'));
-    var delete_id = $(this).attr('data-id');
+  $('#delete-Form-button').on('click', function(event){
     var _delete = confirm('Are you sure you want to delete this disease?');
     if(_delete){
+      alert('it got here');
       event.preventDefault();
-      $(`#delete-Form${delete_id}`).submit();
+      $(`#delete-Form`).submit();
     }
   });
 </script>
+
+
 @endsection

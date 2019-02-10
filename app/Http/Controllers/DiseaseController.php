@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Disease;
 use App\Level;
 use App\Symptom;
@@ -61,6 +62,31 @@ class DiseaseController extends Controller
     }
 
     /**
+      * show page for remove symptom from disease
+    */
+    public function removeSymptomView( $disease_id = null ){
+      if(!$disease_id){
+        return back();
+      }
+
+      // get the disease details symptoms to remove
+      $disease = Disease::find($disease_id);
+
+      $diease_symptom_level = DB::table('disease_symptom')
+      ->select('symptoms.symptom_name', 'symptoms.symptom_id', 'levels.level_name', 'levels.level_id')
+      ->join('symptoms', 'disease_symptom.symptom_id', '=', 'symptoms.symptom_id')
+      ->join('levels', 'disease_symptom.level_id', '=', 'levels.level_id')
+      ->where('disease_symptom.disease_id', [$disease->disease_id])
+      ->get();
+
+      return view('diseases.removesymptom', ['disease' => $disease, 'disease_symptom_level' => $diease_symptom_level]);
+    }
+
+    /**
+      * remove the symptom from the disease
+    */
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -98,13 +124,17 @@ class DiseaseController extends Controller
      */
     public function show(Disease $disease)
     {
-
       // get the disease details
       $disease = Disease::find($disease->disease_id);
-      // get the disease symtopms
-      $symptoms = DiseaseSymptom::where('disease_id', $disease->disease_id);
 
-      return view('diseases.show', ['disease' => $disease, 'symptoms' => $symptoms ]);
+      $diease_symptom_level = DB::table('disease_symptom')
+      ->select('symptoms.symptom_name', 'levels.level_name')
+      ->join('symptoms', 'disease_symptom.symptom_id', '=', 'symptoms.symptom_id')
+      ->join('levels', 'disease_symptom.level_id', '=', 'levels.level_id')
+      ->where('disease_symptom.disease_id', [$disease->disease_id])
+      ->get();
+
+      return view('diseases.show', ['disease' => $disease, 'disease_symptom_level' => $diease_symptom_level]);
     }
 
     /**

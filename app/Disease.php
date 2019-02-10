@@ -19,11 +19,11 @@ class Disease extends Model
     /**
       * Declaring the ORM relationships
       */
-    public function Symptom(){
-        return $this->belongsToMany('App\Symptom', 'disease_symptoms', 'disease_id', 'symptom_id');
+    public function symptoms(){
+        return $this->belongsToMany('App\Symptom', 'disease_symptom', 'disease_id', 'symptom_id');
     }
 
-    public function PatientRecord(){
-        return $this->belongsToMany('App\PatientRecord');
+    public function patientRecords(){
+        return $this->HasMany('App\PatientRecord');
     }
 }

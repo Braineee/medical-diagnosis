@@ -19,7 +19,7 @@ class Treatment extends Model
   /**
     * Declaring the ORM relationships
     */
-  public function PatientRecord(){
+  public function patientRecord(){
       return $this->hasMany('App\PatientRecord');
   }
 

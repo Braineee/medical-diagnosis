@@ -28,8 +28,10 @@ Route::middleware(['auth'])->group(function(){
     //Disease
     Route::resource('diseases', 'DiseaseController');
     Route::get('/diseases/{disease_id?}', 'DiseaseController@destroy')->name('diseases.deleteDisease');
-    Route::get('/diseases/addsymptom/{disease_id?}', 'DiseaseController@addsymptom')->name('diseases.addSymptom');
+    Route::get('/diseases/add-symptom/{disease_id?}', 'DiseaseController@addsymptom')->name('diseases.addSymptom');
     Route::post('/diseases/addsymptom/', 'DiseaseController@storeSymptom')->name('diseases.storeSymptom');
+    Route::get('/diseases/remove-symptom/{disease_id?}', 'DiseaseController@removeSymptomView')->name('diseases.removeSymptomView');
+    Route::post('/diseases/removesymptom/', 'DiseaseController@removeSymptom')->name('diseases.removeSymptom');
     //Symptom
     Route::resource('symptoms', 'SymptomController');
     //Treatment

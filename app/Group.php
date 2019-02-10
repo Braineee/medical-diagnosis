@@ -18,7 +18,7 @@ class Group extends Model
   /**
     * Declaring the ORM relationships
     */
-  public function User(){
+  public function users(){
       return $this->hasMany('App\User');
   }
 }

@@ -28,7 +28,6 @@
                     @endif
 
                 <h4>List Of Diseases</h4>
-                <hr>
                 <!-- display the list of diseases -->
                 <table class="table">
                   <thead>

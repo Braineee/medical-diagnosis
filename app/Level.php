@@ -18,11 +18,15 @@ class Level extends Model
   /**
     * Declaring the ORM relationships
     */
-  public function NewSymptom(){
+  public function symptoms(){
+      return $this->belongsToMany('App\Symptom');
+  }
+
+  public function newSymptom(){
       return $this->hasMany('App\NewSymptom');
   }
 
-  public function DiseaseSymptom(){
+  public function diseaseSymptom(){
       return $this->hasMany('App\DiseaseSymptom');
   }
 }

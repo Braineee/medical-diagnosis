@@ -21,11 +21,11 @@ class NewSymptom extends Model
   /**
     * Declaring the ORM relationships
     */
-  public function Level(){
+  public function levels(){
       return $this->belongsTo('App\Level');
   }
 
-  public function Symptom(){
+  public function symptoms(){
       return $this->belongsTo('App\Symptom');
   }
 

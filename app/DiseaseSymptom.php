@@ -8,7 +8,7 @@ class DiseaseSymptom extends Model
 {
 
   // define the primary key
-  protected $primaryKey = 'disease_symptom_id';
+  //protected $primaryKey = 'disease_symptom_id';
 
   // define the fillables
   protected $fillable = [
@@ -17,14 +17,4 @@ class DiseaseSymptom extends Model
     'level_id'
   ];
 
-  /**
-    * Declaring the ORM relationships
-    */
-  public function Diease(){
-      return $this->belongsTo('App\Diease');
-  }
-
-  public function Symptom(){
-      return $this->belongsTo('App\Symptom');
-  }
 }

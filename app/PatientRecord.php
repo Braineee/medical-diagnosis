@@ -21,15 +21,15 @@ class PatientRecord extends Model
     /**
       * Declaring the ORM relationships
       */
-    public function User(){
+    public function users(){
         return $this->belongsTo('App\User');
     }
 
-    public function Disease(){
+    public function diseases(){
         return $this->belongsTo('App\Disease');
     }
 
-    public function Treatment(){
+    public function treatments(){
         return $this->belongsTo('App\Treatment');
     }
 }

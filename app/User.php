@@ -36,11 +36,11 @@ class User extends Authenticatable
     /**
       * Declaring the ORM relationships
       */
-    public function Group(){
+    public function groups(){
         return $this->belongsTo('App\Group');
     }
 
-    public function PatientRecord(){
+    public function patientRecord(){
         return $this->hasMany('App\PatientRecord');
     }
 }
