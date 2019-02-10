@@ -34,7 +34,7 @@
                       @csrf
 
                       <div class="form-group row">
-                          <label for="disease_name" class="col-md-4 col-form-label text-md-right">{{ __('Name of disease_name') }}</label>
+                          <label for="disease_name" class="col-md-4 col-form-label text-md-right">{{ __('Name of disease') }}</label>
 
                           <div class="col-md-6">
                               <input id="disease_name_name" type="text" class="form-control{{ $errors->has('disease_name') ? ' is-invalid' : '' }}" name="disease_name" value="{{ $disease->disease_name }}" required disabled>
@@ -48,7 +48,7 @@
                       </div>
 
                       <div class="form-group row">
-                          <label for="symptom" class="col-md-4 col-form-label text-md-right">{{ __('Description of disease') }}</label>
+                          <label for="symptom" class="col-md-4 col-form-label text-md-right">{{ __('Select Symptom') }}</label>
 
                           <div class="col-md-6">
                               <select id="symptom" class="form-control{{ $errors->has('symptom') ? ' is-invalid' : '' }}" name="symptom" required>
@@ -66,7 +66,7 @@
                       </div>
 
                       <div class="form-group row">
-                          <label for="level" class="col-md-4 col-form-label text-md-right">{{ __('Description of disease') }}</label>
+                          <label for="level" class="col-md-4 col-form-label text-md-right">{{ __('Select Level') }}</label>
 
                           <div class="col-md-6">
                               <select id="level" class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}" name="level" required>

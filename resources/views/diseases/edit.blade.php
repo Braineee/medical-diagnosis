@@ -13,7 +13,7 @@
                       Doctor's Dashboard
                     </div>
                     <div class="col-md-6 text-right">
-                      <span><a href="/diseases/{{ $disease->disease_id }}" class="btn btn-sm btn-outline-primary">Go back</a></span>
+                      <span><a href="/home" class="btn btn-sm btn-outline-primary">Go back</a></span>
                     </div>
                   </div>
                 </div>
@@ -26,40 +26,37 @@
                         </div>
                     @endif
 
-                  <h4>Add symptom to {{ $disease->disease_name }}</h4>
+                  <h4>Update {{ $disease->disease_name }}</h4>
                   <hr>
 
-                  <form method="POST" action="{{ route('diseases.removeSymptom') }}">
+                  <form method="POST" action="{{ route('diseases.update', [$disease->disease_id] ) }}">
+                    <input type="hidden" name="_method" value="PUT">
 
                       @csrf
 
                       <div class="form-group row">
-                          <label for="disease_name" class="col-md-4 col-form-label text-md-right">{{ __('Name of disease') }}</label>
+                          <label for="disease" class="col-md-4 col-form-label text-md-right">{{ __('Name of disease') }}</label>
 
                           <div class="col-md-6">
-                              <input id="disease_name_name" type="text" class="form-control{{ $errors->has('disease_name') ? ' is-invalid' : '' }}" name="disease_name" value="{{ $disease->disease_name }}" required disabled>
-                              <input type="hidden" name="disease" value="{{ $disease->disease_id }}">
-                              @if ($errors->has('disease_name'))
+                              <input id="disease" type="text" class="form-control{{ $errors->has('disease') ? ' is-invalid' : '' }}" name="disease" value="{{ $disease->disease_name }}" required autofocus>
+
+                              @if ($errors->has('disease'))
                                   <span class="invalid-feedback" role="alert">
-                                      <strong>{{ $errors->first('disease_name') }}</strong>
+                                      <strong>{{ $errors->first('disease') }}</strong>
                                   </span>
                               @endif
                           </div>
                       </div>
 
                       <div class="form-group row">
-                          <label for="symptom" class="col-md-4 col-form-label text-md-right">{{ __('Select symptom to remove') }}</label>
+                          <label for="disease_description" class="col-md-4 col-form-label text-md-right">{{ __('Description of disease') }}</label>
 
                           <div class="col-md-6">
-                              <select id="symptom" class="form-control{{ $errors->has('symptom') ? ' is-invalid' : '' }}" name="symptom" required>
-                                <option value="">Select a symptom</option>
-                                @foreach($disease_symptom_level as $symptom_)
-                                <option value="{{ $symptom_->symptom_id }}">{{ $symptom_->symptom_name }}</option>
-                                @endforeach
-                              </select>
-                              @if ($errors->has('symptom'))
+                              <textarea id="disease_description" type="text" class="form-control{{ $errors->has('disease_description') ? ' is-invalid' : '' }}" name="disease_description" value="{{ $disease->description }}" required>{{ $disease->description }}</textarea>
+
+                              @if ($errors->has('disease_description'))
                                   <span class="invalid-feedback" role="alert">
-                                      <strong>{{ $errors->first('symptom') }}</strong>
+                                      <strong>{{ $errors->first('disease_description') }}</strong>
                                   </span>
                               @endif
                           </div>
@@ -68,7 +65,7 @@
                       <div class="form-group row mb-0">
                           <div class="col-md-6 offset-md-4">
                               <button type="submit" class="btn btn-primary btn-md">
-                                  {{ __('Remove this symptom') }}
+                                  {{ __('Update this disease') }}
                               </button>
                           </div>
                       </div>

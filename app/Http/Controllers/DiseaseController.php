@@ -72,11 +72,11 @@ class DiseaseController extends Controller
       // get the disease details symptoms to remove
       $disease = Disease::find($disease_id);
 
-      $diease_symptom_level = DB::table('disease_symptom')
+      $diease_symptom_level = DB::table('disease_symptoms')
       ->select('symptoms.symptom_name', 'symptoms.symptom_id', 'levels.level_name', 'levels.level_id')
-      ->join('symptoms', 'disease_symptom.symptom_id', '=', 'symptoms.symptom_id')
-      ->join('levels', 'disease_symptom.level_id', '=', 'levels.level_id')
-      ->where('disease_symptom.disease_id', [$disease->disease_id])
+      ->join('symptoms', 'disease_symptoms.symptom_id', '=', 'symptoms.symptom_id')
+      ->join('levels', 'disease_symptoms.level_id', '=', 'levels.level_id')
+      ->where('disease_symptoms.disease_id', [$disease->disease_id])
       ->get();
 
       return view('diseases.removesymptom', ['disease' => $disease, 'disease_symptom_level' => $diease_symptom_level]);
@@ -85,6 +85,19 @@ class DiseaseController extends Controller
     /**
       * remove the symptom from the disease
     */
+    public function removeSymptom(Request $request){
+      $disease_symptom_id =
+      DiseaseSymptom::where([
+        'disease_id' => $request->input('disease'),
+        'symptom_id' => $request->input('symptom')
+      ]);
+
+      if($disease_symptom_id->delete()){
+        return redirect()->route('diseases.index')->with('success', 'Symptom has been removed from disease successfully');
+      }
+
+      return back()->withInput()->with('error','Sorry, Symptom was not removed');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -127,11 +140,11 @@ class DiseaseController extends Controller
       // get the disease details
       $disease = Disease::find($disease->disease_id);
 
-      $diease_symptom_level = DB::table('disease_symptom')
+      $diease_symptom_level = DB::table('disease_symptoms')
       ->select('symptoms.symptom_name', 'levels.level_name')
-      ->join('symptoms', 'disease_symptom.symptom_id', '=', 'symptoms.symptom_id')
-      ->join('levels', 'disease_symptom.level_id', '=', 'levels.level_id')
-      ->where('disease_symptom.disease_id', [$disease->disease_id])
+      ->join('symptoms', 'disease_symptoms.symptom_id', '=', 'symptoms.symptom_id')
+      ->join('levels', 'disease_symptoms.level_id', '=', 'levels.level_id')
+      ->where('disease_symptoms.disease_id', [$disease->disease_id])
       ->get();
 
       return view('diseases.show', ['disease' => $disease, 'disease_symptom_level' => $diease_symptom_level]);
@@ -145,7 +158,9 @@ class DiseaseController extends Controller
      */
     public function edit(Disease $disease)
     {
-        //
+      $disease = Disease::find($disease->disease_id);
+
+      return view('diseases.edit', ['disease' => $disease]);
     }
 
     /**
@@ -157,7 +172,16 @@ class DiseaseController extends Controller
      */
     public function update(Request $request, Disease $disease)
     {
-        //
+      $updateDisease = Disease::where('disease_id', $disease->disease_id)->update([
+        'disease_name' => $request->input('disease'),
+        'description' => $request->input('disease_description')
+      ]);
+
+      if($updateDisease){
+          return redirect()->route('diseases.index')->with('success', 'Disease was updated successfully');
+      }
+      //redirect
+      return back()->withInput('error', 'Disease could not be updated');
     }
 
     /**
