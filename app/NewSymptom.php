@@ -13,6 +13,7 @@ class NewSymptom extends Model
 
   // define the fillables
   protected $fillable = [
+    'case_id',
     'symptom_id',
     'level_id',
     'added',

@@ -117,6 +117,30 @@
                       </section>
 
                     </div>
+                    <div class="row justify-content-center">
+                      <section>
+                        <div class="container py-3">
+                          <div class="col-md-12 card" style="padding-left: 0px;padding-right: 0px;"
+                               data-toggle="tooltip" data-placement="bottom" title="Just click this bar">
+                            <a href="/new-symptoms" class="text-blue">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 text-center v-align py-4">
+                                  <img src="{{ asset('img/bell.svg') }}" alt="user_icon" width="50px" height="50px">
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                  <div class="card-block px-3 py-3">
+                                    <p class="card-text">
+                                      <b>New Symptoms</b><br>
+                                      Here you can view all <br> new symptoms entered by patients
+                                    </p>
+                                  </div>
+                                </div>
+                            </div>
+                            </a>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
 
                     <br>
 
