@@ -28,7 +28,7 @@
                     @endif
 
                 <h4>List Of Symptoms</h4>
-                <hr>
+                <br>
                 <!-- display the list of symptoms -->
                 <table class="table">
                   <thead>

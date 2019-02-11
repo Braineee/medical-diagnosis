@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //increase email key length
-        Schema::defaultStringLength(500);
+        Schema::defaultStringLength(10000);
     }
 
     /**

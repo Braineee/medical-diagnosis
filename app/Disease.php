@@ -24,6 +24,10 @@ class Disease extends Model
     }
 
     public function patientRecords(){
-        return $this->HasMany('App\PatientRecord');
+        return $this->hasMany('App\PatientRecord');
+    }
+
+    public function treatment(){
+        return $this->hasMany('App\Treatment');
     }
 }

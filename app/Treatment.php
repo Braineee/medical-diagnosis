@@ -12,7 +12,7 @@ class Treatment extends Model
 
   // define the fillabels
   protected $fillable = [
-    'disease_id',
+    'disease_disease_id',
     'treatment'
   ];
 
@@ -21,6 +21,10 @@ class Treatment extends Model
     */
   public function patientRecord(){
       return $this->hasMany('App\PatientRecord');
+  }
+
+  public function disease(){
+    return $this->belongsTo('App\Disease');
   }
 
 }
