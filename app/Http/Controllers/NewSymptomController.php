@@ -20,14 +20,14 @@ class NewSymptomController extends Controller
       $new_symptoms_arranged = array();
       $case = array();
       $index = 0;
-      $last_key = 0;
+      $last_key = array();
         // get the list of new Symptoms
         $new_symptoms = NewSymptom::all();
-
+        //echo '<pre>';
         //group the symptom
         foreach ($new_symptoms as $symptom) {
           if($symptom->added !== 1){
-            if($symptom->case_id !== $last_key){
+            if(!in_array($symptom->case_id, $last_key)){
               $symptom_list =
               DB::table('new_symptoms')
               ->select('symptoms.*', 'levels.*', 'new_symptoms.*')
@@ -39,12 +39,13 @@ class NewSymptomController extends Controller
                 array_push($case, [$symtom_->symptom_name => $symtom_->level_name]);
               }
               array_push($new_symptoms_arranged, [$symptom->case_id => $case]);
-              $last_key = $symptom->case_id;
+              //$last_key = $symptom->case_id;
               $case = array();
             }
+            array_push($last_key, $symptom->case_id);
           }
         }
-
+        //var_dump($last_key);
 
         //return the aggregated data
 
@@ -57,8 +58,8 @@ class NewSymptomController extends Controller
               var_dump($value3);
             }
           }
-        }
-        die();*/
+        }*/
+        //die();
         return view('newsymptoms.index', ['newSymptoms' => $new_symptoms_arranged]);
     }
 
@@ -89,9 +90,15 @@ class NewSymptomController extends Controller
      * @param  \App\NewSymptom  $newSymptom
      * @return \Illuminate\Http\Response
      */
-    public function show(NewSymptom $newSymptom)
+    public function show($case_id = null)
     {
-        //
+        //get the new symptoms
+        $new_symptom = NewSymptom::where('case_id','=',$case_id);
+        // get the list of the diseases
+        $dieseases = Disease::all();
+        //var_dump($new_symptom);
+
+        return view('newsymptoms.show', ['symptoms' => $new_symptom, 'diseases' => $dieseases]);
     }
 
     /**
