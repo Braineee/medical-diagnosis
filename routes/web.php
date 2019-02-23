@@ -43,8 +43,13 @@ Route::middleware(['auth'])->group(function(){
     Route::post('registerDieseaseSymptom', 'NewSymptomController@registerDieseaseSymptom')->name('newSymptoms.registerDieseaseSymptom');
   });
 
-  //Users
-  Route::get('/patients', 'PatientController@index')->name('user.patients');
+  //patients
+  Route::resource('patients', 'PatientController');
+
+  //patients
+  Route::resource('doctors', 'DoctorController');
+
+
   //logout function
   Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 });
