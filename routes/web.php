@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/treatments/{treatment_id?}', 'TreatmentController@destroy')->name('treatments.deleteTreatment');
     // new symptom
     Route::resource('newsymptoms', 'NewSymptomController');
+    Route::post('registerDieseaseSymptom', 'NewSymptomController@registerDieseaseSymptom')->name('newSymptoms.registerDieseaseSymptom');
   });
 
   //Users

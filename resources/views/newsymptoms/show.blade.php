@@ -1,4 +1,4 @@
-@extends('layouts.app')
+ @extends('layouts.app')
 
 @section('content')
 
@@ -13,7 +13,7 @@
                       Doctor's Dashboard
                     </div>
                     <div class="col-md-6 text-right">
-                      <span><a href="/diseases/" class="btn btn-sm btn-outline-primary">Go back</a></span>
+                      <span><a href="/newsymptoms/" class="btn btn-sm btn-outline-primary">Go back</a></span>
                     </div>
                   </div>
                 </div>
@@ -25,45 +25,47 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                  <h4>{{ $symptoms->case_id }}</h4>
+                  <h4>Case ID: {{ $case_id }}</h4>
                   <hr>
-                  <h6><b>Description:</b></h6>
-                  <p>{{ $disease->description }}</p>
-                  <br>
                   <h6><b>Symptoms:</b></h6>
                   <ol>
-                    @foreach ($disease_symptom_level as $symptom)
+                    @foreach ($symptoms as $symptom)
                       <li>{{ $symptom->level_name }} level of {{ $symptom->symptom_name }}</li>
                     @endforeach
                   </ol>
                   <br>
-                  <a href="/diseases/add-symptom/{{ $disease->disease_id }}" class="btn btn-md btn-primary">Add Symptoms</a>
-                  <a href="/diseases/remove-symptom/{{ $disease->disease_id }}" class="btn btn-md btn-info">Remove Symptoms</a>
-                  <a href="/diseases/{{ $disease->disease_id }}/edit" class="btn btn-md btn-success">Edit Disease</a>
-                  <button class="btn btn-md btn-danger" title="Click this button to delete this disease" id="delete-Form-button">Delete Disease</button>
+                  <h6><b>Select disease to add to this symptoms:</b></h6>
+                  <form method="POST" action="{{ route('newSymptoms.registerDieseaseSymptom') }}">
+                    @csrf
+                    <div class="form-group row">
+                        <label for="disease" class="col-md-4 col-form-label text-md-right">{{ __('Select disease') }}</label>
+                        <div class="col-md-6">
+                            <select id="disease" class="form-control{{ $errors->has('disease') ? ' is-invalid' : '' }}" name="disease" required>
+                              <option value="">Select a Disease</option>
+                              @foreach($diseases as $disease)
+                              <option value="{{ $disease->disease_id }}">{{ $disease->disease_name }}</option>
+                              @endforeach
+                            </select>
+                            @if ($errors->has('disease'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('disease') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <input type="hidden" name="case_id" value="{{ $case_id }}">
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary btn-md">
+                                {{ __('Add this symptoms to this disease') }}
+                            </button>
+                        </div>
+                    </div>
+                  </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- delete proccedure -->
-<form id="delete-Form" action='{{ route("diseases.deleteDisease",[$disease->disease_id]) }}' method="POST" style="display:none">
-  @csrf
-  @method('DELETE')
-</form>
-<!--end delet proccedure-->
-<script type="text/javascript">
-  $('#delete-Form-button').on('click', function(event){
-    var _delete = confirm('Are you sure you want to delete this disease?');
-    if(_delete){
-      alert('it got here');
-      event.preventDefault();
-      $(`#delete-Form`).submit();
-    }
-  });
-</script>
-
 
 @endsection
