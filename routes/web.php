@@ -46,7 +46,7 @@ Route::middleware(['auth'])->group(function(){
   //patients
   Route::resource('patients', 'PatientController');
 
-  //patients
+  //doctors
   Route::resource('doctors', 'DoctorController');
 
 

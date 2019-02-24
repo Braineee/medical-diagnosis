@@ -30,38 +30,39 @@
                 </div>
               @endif
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+              <div class="card-body">
+                  @if (session('status'))
+                      <div class="alert alert-success" role="alert">
+                          {{ session('status') }}
+                      </div>
+                  @endif
 
-                <h4>List Of Patients</h4>
+                <h4>List Of Doctors</h4>
                 <hr>
                 <!-- display the list of patients -->
                 <table class="table">
                   <thead>
                     <th>Name</th>
+                    <th>Sex</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Date Registered</th>
                     <th>Option</th>
                   </thead>
                   <tbody>
-                    @foreach($patients as $patient)
+                    @foreach($doctors as $doctor)
                     <tr>
-                      <td>{{ $patient->name }}</td>
-                      <td>{{ $patient->email }}</td>
-                      <td>{{ $patient->phone }}</td>
-                      <td>{{ $patient->created_at }}</td>
+                      <td>{{ $doctor->name }}</td>
+                      <td>{{ $doctor->sex }}</td>
+                      <td>{{ $doctor->email }}</td>
+                      <td>{{ $doctor->phone }}</td>
+                      <td>{{ $doctor->created_at }}</td>
                       <td>
-                        <button type="button"
+                        <a href="/doctors/{{ $doctor->id }}"
                                 class="btn btn-primary btn-sm"
-                                name="button"
                                 id='view-history'>
-                                view history
-                        </button>
+                                view doctor's details
+                        </a>
                       </td>
                     </tr>
                     @endforeach

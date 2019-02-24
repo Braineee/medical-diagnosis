@@ -6,14 +6,25 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-              @if(Auth::user()->group_id == '1')
+              @if(Auth::user()->group_id == '2')
+                <div class="card-header">
+                  <div class="row">
+                    <div class="col-md-6">
+                      Doctor's Dashboard
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <span class="pull-right"><a href="/home" class="btn btn-sm btn-outline-primary">Go Back</a></span>
+                    </div>
+                  </div>
+                </div>
+              @else
                 <div class="card-header">
                   <div class="row">
                     <div class="col-md-6">
                       Patient's Dashboard
                     </div>
                     <div class="col-md-6 text-right">
-                      <span><a href="/home/" class="btn btn-sm btn-outline-primary">Go back</a></span>
+                      <span class="pull-right"><a href="/home" class="btn btn-sm btn-outline-primary">Go Back</a></span>
                     </div>
                   </div>
                 </div>

@@ -224,7 +224,7 @@
                         <div class="container py-3">
                           <div class="col-md-12 card" style="padding-left: 0px;padding-right: 0px;"
                                data-toggle="tooltip" data-placement="bottom" title="Just click this bar">
-                            <a href="?pg=fees" class="text-blue">
+                            <a href="/doctors" class="text-blue">
                             <div class="row">
                                 <div class="col-md-4 col-sm-4 text-center v-align py-4">
                                   <img src="{{ asset('img/doctor.svg') }}" alt="user_icon" width="50px" height="50px">

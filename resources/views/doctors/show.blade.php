@@ -24,7 +24,7 @@
                       Patient's Dashboard
                     </div>
                     <div class="col-md-6 text-right">
-                      <span class="pull-right"><a href="/home" class="btn btn-sm btn-outline-primary">Go Back</a></span>
+                      <span class="pull-right"><a href="/doctors" class="btn btn-sm btn-outline-primary">Go Back</a></span>
                     </div>
                   </div>
                 </div>
@@ -37,36 +37,16 @@
                         </div>
                     @endif
 
-                <h4>List Of Patients</h4>
-                <hr>
-                <!-- display the list of patients -->
-                <table class="table">
-                  <thead>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Date Registered</th>
-                    <th>Option</th>
-                  </thead>
-                  <tbody>
-                    @foreach($patients as $patient)
-                    <tr>
-                      <td>{{ $patient->name }}</td>
-                      <td>{{ $patient->email }}</td>
-                      <td>{{ $patient->phone }}</td>
-                      <td>{{ $patient->created_at }}</td>
-                      <td>
-                        <button type="button"
-                                class="btn btn-primary btn-sm"
-                                name="button"
-                                id='view-history'>
-                                view history
-                        </button>
-                      </td>
-                    </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                  <h4>{{ $doctor->name }}</h4>
+                  <hr>
+                  <h6><b>Details:</b></h6>
+                  <ol>
+                      <li> Username: {{ $doctor->username }}</li>
+                      <li> Sex: {{ $doctor->sex }}</li>
+                      <li> Email: {{ $doctor->email }}</li>
+                      <li> Phone: {{ $doctor->phone }}</li>
+                  </ol>
+                  <br>
                 </div>
             </div>
         </div>
