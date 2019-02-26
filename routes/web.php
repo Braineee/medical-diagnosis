@@ -51,10 +51,9 @@ Route::middleware(['auth'])->group(function(){
 
   //diagnosis
   Route::post('keepSymptom', 'DiagnosisController@ajaxKeepSymptom')->name('diagnosis.keepSymptom');
+  Route::post('diagnosePatient', 'DiagnosisController@ajaxDiagnosePatient')->name('diagnosis.DiagnosePatient');
   Route::get('/diagnosis/preview_symptoms', 'DiagnosisController@diagnosisPreview')->name('diagnosis.diagnosisPreview');
   Route::resource('diagnosis', 'DiagnosisController');
-
-
 
   //logout function
   Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

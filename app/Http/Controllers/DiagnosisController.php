@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DiseaseSymptom;
+use App\Disease;
+use App\Treatment;
 use App\Symptom;
 use App\Level;
 use Illuminate\Http\Request;
@@ -178,6 +180,112 @@ class DiagnosisController extends Controller
         return back()->withInput()->with('error','Sorry, Please select some symptoms before proceeding');
       }
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxDiagnosePatient()
+    {
+      //get the disease from the symptoms
+      $list_of_suspected_diseases_id = array();
+      $list_of_disease_typifed = array();
+      $disease_diagnosed = null;
+      $disease_diagnosed_id = 0;
+      $suggested_treatment = null;
+      $suggested_treatment_id = 0;
+      $diagnosis_result = array();
+      // return the percetage of occurance of this disease
+      function calculateThePercentage($disease, $max_value){
+        $percentage = ($disease/$max_value)*100;
+        return round($percentage, 2);
+      }
+
+      // return the number of occurance of this disease
+      function countOccurance($value, $array) {
+        return count(array_keys($array, $value));
+      }
+
+
+      if(session()->has('symptoms_for_diagnosis') &&
+         session()->get('symptoms_for_diagnosis') != null){
+
+           //get the list of Symptoms
+           $selected_symptoms = session()->get('symptoms_for_diagnosis');
+
+           //get the list of diseases
+           foreach ($selected_symptoms as $value) {
+             //get the set of disease with the symptoms
+             $get_the_disease = DiseaseSymptom::where([
+                ['symptom_id', '=', $value['symptom_id']],
+                ['level_id', '=', $value['level_id']]
+             ])->get();
+
+             foreach ($get_the_disease as $value) {
+               //push it to the $list_of_suspected_diseases_id
+               array_push($list_of_suspected_diseases_id, $value->disease_id);
+               //push it to the $list_of_disease_typifed
+               if(!in_array($value->disease_id, $list_of_disease_typifed)){
+                 array_push($list_of_disease_typifed, $value->disease_id);
+               }
+             }
+          }// end of get the list of disease
+
+          //calculate the result
+          $count = 0;
+          while(count($list_of_disease_typifed) > $count){
+            //get the number of occurance
+            $number_of_occurance_of_disease_in_the_set = countOccurance($list_of_disease_typifed[$count], $list_of_suspected_diseases_id);
+            //get the fraction percentage of this occurance from the deasease set
+            $fraction_percentage_of_occurance_of_disease_in_the_set
+            = calculateThePercentage($number_of_occurance_of_disease_in_the_set, count($list_of_suspected_diseases_id));
+
+            //get the name of this diseases
+            $name_of_disease = Disease::find($list_of_disease_typifed[$count]);
+
+            array_push($diagnosis_result, [
+              'disease_id' => $list_of_disease_typifed[$count],
+              'disease' => $name_of_disease->disease_name,
+              'percentage' => $fraction_percentage_of_occurance_of_disease_in_the_set
+            ]);
+
+            $count ++;
+          }
+
+          //calculate the diease with the highest percentage
+          $highest = 0;
+          foreach($diagnosis_result as $value) {
+            if($value['percentage'] > $highest){
+              $highest = $value['percentage'];
+              $disease_diagnosed = $value['disease'];
+              $disease_diagnosed_id = $value['disease_id'];
+            }
+          }
+
+          //get the treatment for the diagnosed disease
+          $get_suggested_treatment = Treatment::where('disease_disease_id', $disease_diagnosed_id)->get();
+          if($get_suggested_treatment->count() > 0){
+            $suggested_treatment = $get_suggested_treatment->first()->treatment;
+            $suggested_treatment_id = $get_suggested_treatment->first()->treatment_id;
+          }else{
+            $suggested_treatment = "No available treatment for this disease for now";
+          }
+
+          return response()->json([
+            'success'=> true,
+            'diagnosis_result' => $diagnosis_result,
+            'disease_diagnosed' => $disease_diagnosed,
+            'suggested_treatment' => $suggested_treatment
+          ]);
+          /*echo '<pre>';
+          var_dump($diagnosis_result);
+          var_dump($disease_diagnosed);
+          var_dump($disease_diagnosed_id);
+          var_dump();*/
+      }
+    }
+
 
     /**
      * Show the form for creating a new resource.

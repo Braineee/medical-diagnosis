@@ -34,7 +34,7 @@ $('document').ready(function(){
 
     $.ajax({
        type:'POST',
-       url:'/diagnose_patient',
+       url:'/diagnosePatient',
        beforeSend:function(){
         $('.diagnose_me').html(`<img src="../img/loader.gif">&ensp;<b>Diagnosing...</b>`);
         $('.diagnosis_result').html(`<h4>Please wait while you are being diagnosed...</h4>`);
@@ -42,11 +42,14 @@ $('document').ready(function(){
        },
        success:function(response){
          if(response.success){
-           $(`input[name=checkbox${symptom_id}]`).attr('checked', true);
+           if(response.success == true)
+
+
+
          }else if(response.error){
-           swal('Oops!', `${response.error}`, "info");
+
          }else{
-           swal('Oops!', `An error occured`, "error");
+
          }
        }
     });
