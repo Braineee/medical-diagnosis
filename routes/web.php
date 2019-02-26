@@ -26,21 +26,21 @@ Route::middleware(['auth'])->group(function(){
   // middleware for doctors
   Route::middleware(['doctor'])->group(function() {
     //Disease
-    Route::resource('diseases', 'DiseaseController');
     Route::get('/diseases/{disease_id?}', 'DiseaseController@destroy')->name('diseases.deleteDisease');
     Route::get('/diseases/add-symptom/{disease_id?}', 'DiseaseController@addsymptom')->name('diseases.addSymptom');
     Route::post('/diseases/addsymptom/', 'DiseaseController@storeSymptom')->name('diseases.storeSymptom');
     Route::get('/diseases/remove-symptom/{disease_id?}', 'DiseaseController@removeSymptomView')->name('diseases.removeSymptomView');
     Route::post('/diseases/removesymptom/', 'DiseaseController@removeSymptom')->name('diseases.removeSymptom');
+    Route::resource('diseases', 'DiseaseController');
     //Symptom
-    Route::resource('symptoms', 'SymptomController');
     Route::get('/symptoms/{symptom_id?}', 'SymptomController@destroy')->name('symptoms.deleteSymptom');
+    Route::resource('symptoms', 'SymptomController');
     //Treatment
-    Route::resource('treatments', 'TreatmentController');
     Route::get('/treatments/{treatment_id?}', 'TreatmentController@destroy')->name('treatments.deleteTreatment');
+    Route::resource('treatments', 'TreatmentController');
     // new symptom
-    Route::resource('newsymptoms', 'NewSymptomController');
     Route::post('registerDieseaseSymptom', 'NewSymptomController@registerDieseaseSymptom')->name('newSymptoms.registerDieseaseSymptom');
+    Route::resource('newsymptoms', 'NewSymptomController');
   });
 
   //patients
@@ -48,6 +48,12 @@ Route::middleware(['auth'])->group(function(){
 
   //doctors
   Route::resource('doctors', 'DoctorController');
+
+  //diagnosis
+  Route::post('keepSymptom', 'DiagnosisController@ajaxKeepSymptom')->name('diagnosis.keepSymptom');
+  Route::get('/diagnosis/preview_symptoms', 'DiagnosisController@diagnosisPreview')->name('diagnosis.diagnosisPreview');
+  Route::resource('diagnosis', 'DiagnosisController');
+
 
 
   //logout function
