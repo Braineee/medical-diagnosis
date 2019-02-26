@@ -30,32 +30,34 @@
                 </div>
               @endif
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+              <div class="card-body">
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
-                  <h4>Preview selected symptoms for diagnosis</h4>
-                  <hr>
-                  <h6><b>Infomation:</b></h6>
-                  <p>Please kindly preview all symptoms you have previously selected and ensure that they are acurate as this would help in diagnosing you.</p>
-                  <br>
-                  <h6><b>Symptoms:</b></h6>
-                  <p>From the previous selection you made it was deemed that:<p>
-                  <ol>
-                    @foreach ($selected_symptoms as $symptom)
-                      <li>You are experiencing a <b>{{ $symptom['level_name'] }}</b> level of <b>{{ $symptom['symptom_name'] }}</b></li>
-                    @endforeach
-                  </ol>
-                  <p>Please click on the "Go Back" button above if you need to make any changes or click on the "Diagnose me now" button to continue with your diagnosis.</p>
-                  <hr>
-                  <div class="diagnosis_result">
+                <h4>Preview selected symptoms for diagnosis</h4>
+                <hr>
+                <h6><b>Infomation:</b></h6>
+                <p>Please kindly preview all symptoms you have previously selected and ensure that they are acurate as this would help in diagnosing you.</p>
+                <br>
+                <h6><b>Symptoms:</b></h6>
+                <p>From the previous selection you made it was deemed that:<p>
+                <ol>
+                  @foreach ($selected_symptoms as $symptom)
+                    <li>You are experiencing a <b>{{ $symptom['level_name'] }}</b> level of <b>{{ $symptom['symptom_name'] }}</b></li>
+                  @endforeach
+                </ol>
+                <p>Please click on the "Go Back" button above if you need to make any changes or click on the "Diagnose me now" button to continue with your diagnosis.</p>
+                <hr>
+                <br>
+                <div class="diagnosis_result text-center">
 
-                  </div>
-                  <a href="" class="btn btn-md btn-danger btn-block btn-lg"><b>Diagnose me now</b></a>
                 </div>
+                <br>
+                <button class="btn btn-md btn-danger btn-block btn-lg diagnose_me"><b>Diagnose me now</b></button>
+              </div>
             </div>
         </div>
     </div>

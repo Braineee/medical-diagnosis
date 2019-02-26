@@ -29,7 +29,26 @@ $('document').ready(function(){
 
   });// end of onchange
 
-  $('.diagnose_me').on('change', function(e)){
+  $('.diagnose_me').on('click', function(e){
     e.preventDefault();
-  }
+
+    $.ajax({
+       type:'POST',
+       url:'/diagnose_patient',
+       beforeSend:function(){
+        $('.diagnose_me').html(`<img src="../img/loader.gif">&ensp;<b>Diagnosing...</b>`);
+        $('.diagnosis_result').html(`<h4>Please wait while you are being diagnosed...</h4>`);
+        $('.diagnose_me').attr('disabled', true);
+       },
+       success:function(response){
+         if(response.success){
+           $(`input[name=checkbox${symptom_id}]`).attr('checked', true);
+         }else if(response.error){
+           swal('Oops!', `${response.error}`, "info");
+         }else{
+           swal('Oops!', `An error occured`, "error");
+         }
+       }
+    });
+  });
 });
