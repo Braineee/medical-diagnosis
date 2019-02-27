@@ -56,12 +56,7 @@
                       <td>{{ $patient->phone }}</td>
                       <td>{{ $patient->created_at }}</td>
                       <td>
-                        <button type="button"
-                                class="btn btn-primary btn-sm"
-                                name="button"
-                                id='view-history'>
-                                view history
-                        </button>
+                        <a href="records/{{ $patient->id }}" class="btn btn-primary btn-sm">view history</a>
                       </td>
                     </tr>
                     @endforeach

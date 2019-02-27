@@ -13,7 +13,7 @@
                       Doctor's Dashboard
                     </div>
                     <div class="col-md-6 text-right">
-                      <span class="pull-right"><a href="/home" class="btn btn-sm btn-outline-primary">Go Back</a></span>
+                      <span class="pull-right"><a href="/patients" class="btn btn-sm btn-outline-primary">Go Back</a></span>
                     </div>
                   </div>
                 </div>
@@ -37,7 +37,7 @@
                         </div>
                     @endif
 
-                <h4>Patient medical history</h4>
+                <h4>Patient medical history ({{ $patient_records->first()->name }})</h4>
                 <hr>
                 <!-- display the list of patients -->
                 <table class="table">

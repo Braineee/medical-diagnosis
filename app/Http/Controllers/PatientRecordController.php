@@ -50,13 +50,19 @@ class PatientRecordController extends Controller
         //get the patient records
         $patient_record =
         DB::table('patient_records')
-        ->select('patient_records.*', 'diseases.*', 'treatments.*')
+        ->select('patient_records.*', 'diseases.*', 'treatments.*', 'users.*')
         ->join('diseases', 'patient_records.disease_id', '=', 'diseases.disease_id')
         ->join('treatments', 'patient_records.treatment_id', '=', 'treatments.treatment_id')
+        ->join('users', 'patient_records.user_id', '=', 'users.id')
         ->where('user_id', $patientRecord)
         ->get();
 
-        return view('records.show', ['patient_records' => $patient_record]);
+        if($patient_record->count() != 0){
+          return view('records.show', ['patient_records' => $patient_record]);
+          die();
+        }
+
+        return back()->withInput()->with('error','Sorry, no record available for this patient.');
 
     }
 
@@ -78,6 +84,7 @@ class PatientRecordController extends Controller
         ->where('patient_record_id', $recordId)
         ->get();
 
+
         $date_of_diagnosis = $patient_record_details->first()->created_at;
         $patient_name = $patient_record_details->first()->name;
         $patient_sex = $patient_record_details->first()->sex;
@@ -96,6 +103,7 @@ class PatientRecordController extends Controller
           'patient_phone' => $patient_phone,
           'disease_diagnosed' => $disease_diagnosed,
         ]);
+
     }
 
 
