@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\DiseaseSymptom;
+use App\PatientRecord;
+use App\NewSymptom;
 use App\Disease;
 use App\Treatment;
 use App\Symptom;
 use App\Level;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DiagnosisController extends Controller
 {
@@ -176,8 +179,7 @@ class DiagnosisController extends Controller
            return view('diagnosis.preview', ['selected_symptoms' => $selected_symptoms_name]);
 
       }else{
-        var_dump('cannot work');
-        return back()->withInput()->with('error','Sorry, Please select some symptoms before proceeding');
+        die('NB: Please go back and select a symptom first');
       }
     }
 
@@ -194,7 +196,7 @@ class DiagnosisController extends Controller
       $disease_diagnosed = null;
       $disease_diagnosed_id = 0;
       $suggested_treatment = null;
-      $suggested_treatment_id = 0;
+      $suggested_treatment_id = 1;
       $diagnosis_result = array();
       // return the percetage of occurance of this disease
       function calculateThePercentage($disease, $max_value){
@@ -222,14 +224,34 @@ class DiagnosisController extends Controller
                 ['level_id', '=', $value['level_id']]
              ])->get();
 
-             foreach ($get_the_disease as $value) {
-               //push it to the $list_of_suspected_diseases_id
-               array_push($list_of_suspected_diseases_id, $value->disease_id);
-               //push it to the $list_of_disease_typifed
-               if(!in_array($value->disease_id, $list_of_disease_typifed)){
-                 array_push($list_of_disease_typifed, $value->disease_id);
+             if($get_the_disease->count() != 0){
+               foreach ($get_the_disease as $value) {
+                 //push it to the $list_of_suspected_diseases_id
+                 array_push($list_of_suspected_diseases_id, $value->disease_id);
+                 //push it to the $list_of_disease_typifed
+                 if(!in_array($value->disease_id, $list_of_disease_typifed)){
+                   array_push($list_of_disease_typifed, $value->disease_id);
+                 }
                }
-             }
+            }else{
+              //insert it to the new symptoms
+              $get_random_number = mt_rand(100000, 999999);
+              foreach(session()->get('symptoms_for_diagnosis') as $value) {
+                $new_symptom = NewSymptom::create([
+                  'symptom_id' => $value['symptom_id'],
+                  'level_id' => $value['level_id'],
+                  'case_id' => $get_random_number
+                ]);
+              }
+
+              //empty the diagnosis array
+              session()->put('symptoms_for_diagnosis', array());
+
+              return response()->json([
+                'error'=> 'Could not diagnose a disease with this symptoms please try again later',
+              ]);
+              die();
+            }
           }// end of get the list of disease
 
           //calculate the result
@@ -244,11 +266,13 @@ class DiagnosisController extends Controller
             //get the name of this diseases
             $name_of_disease = Disease::find($list_of_disease_typifed[$count]);
 
+
             array_push($diagnosis_result, [
               'disease_id' => $list_of_disease_typifed[$count],
               'disease' => $name_of_disease->disease_name,
               'percentage' => $fraction_percentage_of_occurance_of_disease_in_the_set
             ]);
+
 
             $count ++;
           }
@@ -272,17 +296,38 @@ class DiagnosisController extends Controller
             $suggested_treatment = "No available treatment for this disease for now";
           }
 
+          //insert into the patients record
+          $symptoms_ = " ";
+          foreach(session()->get('symptoms_for_diagnosis') as $value) {
+            $get_the_symptom = Symptom::find($value['symptom_id']);
+            //get the symptom name
+            $symptom_name = $get_the_symptom->symptom_name;
+            //get the level name
+            $get_the_level = Level::find($value['level_id']);
+            $level_name = $get_the_level->level_name;
+            $symptoms_ .= $symptom_name.'-'.$level_name.', ';
+          }
+
+
+          $patient_record = PatientRecord::create([
+              'user_id' => Auth::user()->id,
+              'disease_id' => $disease_diagnosed_id,
+              'treatment_id' => $suggested_treatment_id,
+              'symptoms' => $symptoms_
+          ]);
+
+
+
+          //empty the diagnosis array
+          session()->put('symptoms_for_diagnosis', array());
+
           return response()->json([
             'success'=> true,
             'diagnosis_result' => $diagnosis_result,
             'disease_diagnosed' => $disease_diagnosed,
             'suggested_treatment' => $suggested_treatment
           ]);
-          /*echo '<pre>';
-          var_dump($diagnosis_result);
-          var_dump($disease_diagnosed);
-          var_dump($disease_diagnosed_id);
-          var_dump();*/
+
       }
     }
 

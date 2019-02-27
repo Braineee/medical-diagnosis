@@ -24,7 +24,7 @@
                       Patient's Dashboard
                     </div>
                     <div class="col-md-6 text-right">
-                      <span class="pull-right"><a href="/diagnosis" class="btn btn-sm btn-outline-primary">Go Back</a></span>
+                      <span class="pull-right"><a href="/records/{{ $patient_record_details->first()->id }}" class="btn btn-sm btn-outline-primary">Go Back</a></span>
                     </div>
                   </div>
                 </div>
@@ -37,31 +37,24 @@
                     </div>
                 @endif
 
-                <h4>Preview selected symptoms for diagnosis</h4>
+                <h4>Diagnosis details</h4>
                 <hr>
-                <h6><b>Infomation:</b></h6>
-                <p>Please kindly preview all symptoms you have previously selected and ensure that they are acurate as this would help in diagnosing you.</p>
-                <br>
+                <h6><b>Patient Infomation:</b></h6>
+                <ul>
+                  <li><b>Name:</b> {{ $patient_name }} </li>
+                  <li><b>Sex:</b> {{ $patient_sex }} </li>
+                  <li><b>Email:</b> {{ $patient_email }} </li>
+                  <li><b>Phone:</b> {{ $patient_phone }} </li>
+                </ul>
+                <hr>
                 <h6><b>Symptoms:</b></h6>
-                <p>From the previous selection you made it was deemed that:<p>
-                <ol>
-                  @foreach ($selected_symptoms as $symptom)
-                    <li>You are experiencing a <b>{{ $symptom['level_name'] }}</b> level of <b>{{ $symptom['symptom_name'] }}</b></li>
-                  @endforeach
-                </ol>
-                <p>Please click on the "Go Back" button above if you need to make any changes or click on the "Diagnose me now" button to continue with your diagnosis.</p>
+                <p>{{ $patient_record_details->first()->symptoms }}<p>
                 <hr>
-                <br>
-                <div class="diagnosis_result text-center">
-                </div>
+                <h6><b>Summary of diagnosis:</b></h6>
+                <p>On <b>{{ $date_of_diagnosis }}</b> patient was diagnosed of <b class="text-danger">{{ $disease_diagnosed }}</b> based on the symptoms provide above.</p>
                 <hr>
-                <div class="diagnosis_treatment text-center">
-                </div>
-                <hr>
-                <div class="diagnosis_result_overview">
-                </div>
-                <br>
-                <button class="btn btn-md btn-danger btn-block btn-lg diagnose_me"><b>Diagnose me now</b></button>
+                <h6><b>Treatement prescribed:</b></h6>
+                <p>{{ $patient_record_details->first()->treatment }}</b></p>
               </div>
             </div>
         </div>

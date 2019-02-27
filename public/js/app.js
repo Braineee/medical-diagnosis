@@ -42,14 +42,29 @@ $('document').ready(function(){
        },
        success:function(response){
          if(response.success){
-           if(response.success == true)
+           if(response.success == true){
+             setTimeout(()=>{
+               $('.diagnosis_result').html(`<h4>You have been diagnosed of <strong class="text-danger">${response.disease_diagnosed}</strong>.</h4>`);
+               $('.diagnosis_treatment').html(`<h5><strong class="text-danger">Treatment recommended:</strong><br>${response.suggested_treatment}.</h5>`);
 
-
-
+               let full_result = '';
+               full_result += '<h6>Result in detail</h6>';
+               full_result += '<ul>';
+               $.each(response.diagnosis_result, function(key, value){
+                 full_result += `<li><b>Test for ${value.disease}</b> => <strong>${value.percentage}%</strong></li>`;
+               });
+               full_result += '</ul>';
+               $('.diagnosis_result_overview').html(full_result);
+               $('.diagnose_me').html(`<b>Diagnose me now</b>`);
+               $('.diagnose_me').attr('disabled', false);
+             }, 4000);
+           }
          }else if(response.error){
-
+           $('.diagnosis_result').html(`<h4>${response.error}</h4>`);
+           $('.diagnose_me').html(`<b>Diagnose me now</b>`);
+           $('.diagnose_me').attr('disabled', true);
          }else{
-
+           swal('Oops!', `An error occured while diagnosing`, "error");
          }
        }
     });

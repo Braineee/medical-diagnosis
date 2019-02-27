@@ -55,6 +55,10 @@ Route::middleware(['auth'])->group(function(){
   Route::get('/diagnosis/preview_symptoms', 'DiagnosisController@diagnosisPreview')->name('diagnosis.diagnosisPreview');
   Route::resource('diagnosis', 'DiagnosisController');
 
+  //records
+  Route::get('records/view_details/{record_id?}', 'PatientRecordController@viewDetails')->name('records.viewDetails');
+  Route::resource('records', 'PatientRecordController');
+
   //logout function
   Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
 });
