@@ -1,3 +1,5 @@
+This is a medical-diagnosis system built on laravel using the rule-base algorithm
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
