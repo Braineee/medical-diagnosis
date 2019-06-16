@@ -1,4 +1,4 @@
-This is a medical-diagnosis system built on laravel using the rule-base algorithm
+This is a medical-diagnosis system built on laravel using the rule-base algorithm.
 
 You can check out the app on: http://afternoon-caverns-64276.herokuapp.com/login
 
